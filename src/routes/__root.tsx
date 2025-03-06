@@ -6,8 +6,6 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
-import Header from '../components/Header'
-
 import appCss from '../styles.css?url'
 
 export const Route = createRootRoute({
@@ -21,7 +19,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'TanStack Chat Starter',
       },
     ],
     links: [
@@ -34,8 +32,6 @@ export const Route = createRootRoute({
 
   component: () => (
     <RootDocument>
-      <Header />
-
       <Outlet />
       <TanStackRouterDevtools />
     </RootDocument>
