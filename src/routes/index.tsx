@@ -41,6 +41,7 @@ function Home() {
   // Local state
   const [input, setInput] = useState('')
   const [editingChatId, setEditingChatId] = useState<string | null>(null)
+  const [editingTitle, setEditingTitle] = useState('')
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const [pendingMessage, setPendingMessage] = useState<Message | null>(null)
@@ -180,6 +181,7 @@ function Home() {
   const handleUpdateChatTitle = (id: string, title: string) => {
     updateConversationTitle(id, title)
     setEditingChatId(null)
+    setEditingTitle('')
   }
 
   // Handle input change
@@ -225,14 +227,22 @@ function Home() {
               {editingChatId === chat.id ? (
                 <input
                   type="text"
-                  value={chat.title}
-                  onChange={(e) =>
-                    handleUpdateChatTitle(chat.id, e.target.value)
-                  }
-                  onBlur={() => setEditingChatId(null)}
+                  value={editingTitle}
+                  onChange={(e) => setEditingTitle(e.target.value)}
+                  onFocus={(e) => e.target.select()}
+                  onBlur={() => {
+                    if (editingTitle.trim()) {
+                      handleUpdateChatTitle(chat.id, editingTitle)
+                    }
+                    setEditingChatId(null)
+                    setEditingTitle('')
+                  }}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleUpdateChatTitle(chat.id, chat.title)
+                    if (e.key === 'Enter' && editingTitle.trim()) {
+                      handleUpdateChatTitle(chat.id, editingTitle)
+                    } else if (e.key === 'Escape') {
+                      setEditingChatId(null)
+                      setEditingTitle('')
                     }
                   }}
                   className="flex-1 text-sm text-white bg-transparent focus:outline-none"
@@ -248,6 +258,7 @@ function Home() {
                   onClick={(e) => {
                     e.stopPropagation()
                     setEditingChatId(chat.id)
+                    setEditingTitle(chat.title)
                   }}
                   className="p-1 text-gray-400 hover:text-white"
                 >
