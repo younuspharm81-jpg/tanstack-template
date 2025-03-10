@@ -1,6 +1,48 @@
-# TanStack Starter
+# TanStack Chat Template
+
+![TanStack Starter Preview](tanstack-starter-preview.jpg)
+
+A modern chat template built with TanStack Router and Claude AI integration features a clean and responsive interface.
 
 **⚡ View demo:** [https://tanstack-starter.netlify.app/](https://tanstack-starter.netlify.app/)
+
+## Deploy to Netlify
+
+Want to deploy immediately? Click this button
+
+[![Deploy to Netlify Button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/tanstack-template)
+
+Clicking this button will create a new repo for you that looks exactly like this one, and sets that repo up immediately for deployment on Netlify.
+
+## ✨ Features
+
+### AI Capabilities
+- 🤖 Powered by Claude 3.5 Sonnet 
+- 📝 Rich markdown formatting with syntax highlighting
+- 🎯 Customizable system prompts for tailored AI behavior
+- 🔄 Real-time message updates and streaming responses
+
+### User Experience
+- 🎨 Modern UI with Tailwind CSS and Lucide icons
+- 🔍 Conversation management
+- 🔐 Secure API key management
+- 📋 Markdown rendering with code highlighting
+
+## Architecture
+
+### Tech Stack
+- **Frontend Framework**: React 19 with TanStack Start
+- **Routing**: TanStack Router
+- **State Management**: TanStack Store
+- **Styling**: Tailwind CSS 4
+- **AI Integration**: Anthropic's Claude API
+- **Build Tool**: Vite 6 with Vinxi
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v20.9+
+- (optional) [nvm](https://github.com/nvm-sh/nvm) for Node version management
+- [Anthropic Claude API](https://www.anthropic.com/api)
 
 ## Getting Started
 
@@ -8,10 +50,10 @@ To run this application:
 
 ```bash
 npm install
-npm start
+npm run dev
 ```
 
-# Building For Production
+### Building For Production
 
 To build this application for production:
 
@@ -19,17 +61,15 @@ To build this application for production:
 npm run build
 ```
 
-## Testing
-
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+To preview the production build:
 
 ```bash
-npm run test
+npm run serve
 ```
 
 ## Styling
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+This project uses [Tailwind CSS](https://tailwindcss.com/) v4 for styling.
 
 ## Error Monitoring
 
@@ -52,49 +92,17 @@ VITE_SENTRY_DSN=your-sentry-dsn-here
 SENTRY_AUTH_TOKEN=your-sentry-auth-token-here
 ```
 
+## Add Anthropic API Key to .env file
 
+You can generate and manage your Anthropic API keys through the [Anthropic Console](https://console.anthropic.com/login).
 
-# TanStack Chat Application
-
-Am example chat application built with TanStack Start, TanStack Store, and Claude AI.
-
-## .env Updates
-
-```env
+```
+# .env file
 VITE_ANTHROPIC_API_KEY=your_anthropic_api_key
 ```
 
-## ✨ Features
-
-### AI Capabilities
-- 🤖 Powered by Claude 3.5 Sonnet 
-- 📝 Rich markdown formatting with syntax highlighting
-- 🎯 Customizable system prompts for tailored AI behavior
-- 🔄 Real-time message updates and streaming responses
-
-### User Experience
-- 🎨 Modern UI with Tailwind CSS and Lucide icons
-- 🔍 Conversation management and history
-- 🔐 Secure API key management
-- 📋 Markdown rendering with code highlighting
-
-### Technical Features
-- 📦 Centralized state management with TanStack Store
-- 🔌 Extensible architecture for multiple AI providers
-- 🛠️ TypeScript for type safety
-
-## Architecture
-
-### Tech Stack
-- **Frontend Framework**: TanStack Start
-- **Routing**: TanStack Router
-- **State Management**: TanStack Store
-- **Styling**: Tailwind CSS
-- **AI Integration**: Anthropic's Claude API
-
-
 ## Routing
-This project uses [TanStack Router](https://tanstack.com/router). The initial setup is a file based router. Which means that the routes are managed as fiels in `src/routes`.
+This project uses [TanStack Router](https://tanstack.com/router). The initial setup is a file based router. Which means that the routes are managed as files in `src/routes`.
 
 ### Adding A Route
 
@@ -152,12 +160,11 @@ export const Route = createRootRoute({
 
 The `<TanStackRouterDevtools />` component is not required so you can remove it if you don't want it in your layout.
 
-More information on layouts can be found in the [Layouts documentation](hthttps://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
+More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
 
 ## Data Fetching
 
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
+There are multiple ways to fetch data in your application. You can use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
 
 For example:
 
@@ -188,107 +195,19 @@ const peopleRoute = createRoute({
 
 Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
 
-### React-Query
-
-React-Query is an excellent addition or alternative to route loading and integrating it into you application is a breeze.
-
-First add your dependencies:
-
-```bash
-npm install @tanstack/react-query @tanstack/react-query-devtools
-```
-
-Next we'll need to creata query client and provider. We recommend putting those in `main.tsx`.
-
-```tsx
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// ...
-
-const queryClient = new QueryClient();
-
-// ...
-
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-
-  root.render(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  );
-}
-```
-
-You can also add TanStack Query Devtools to the root route (optional).
-
-```tsx
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      <ReactQueryDevtools buttonPosition="top-right" />
-      <TanStackRouterDevtools />
-    </>
-  ),
-});
-```
-
-Now you can use `useQuery` to fetch your data.
-
-```tsx
-import { useQuery } from "@tanstack/react-query";
-
-import "./App.css";
-
-function App() {
-  const { data } = useQuery({
-    queryKey: ["people"],
-    queryFn: () =>
-      fetch("https://swapi.dev/api/people")
-        .then((res) => res.json())
-        .then((data) => data.results as { name: string }[]),
-    initialData: [],
-  });
-
-  return (
-    <div>
-      <ul>
-        {data.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default App;
-```
-
-You can find out everything you need to know on how to use React-Query in the [React-Query documentation](https://tanstack.com/query/latest/docs/framework/react/overview).
-
 ## State Management
 
-Another common requirement for React applications is state management. There are many options for state management in React. TanStack Store provides a great starting point for your project.
+This project uses TanStack Store for state management. The store files are located in the `src/store` directory.
 
-First you need to add TanStack Store as a dependency:
-
-```bash
-npm install @tanstack/store
-```
-
-Now let's create a simple counter in the `src/App.tsx` file as a demonstration.
+Here's a simple example of how to use TanStack Store:
 
 ```tsx
 import { useStore } from "@tanstack/react-store";
 import { Store } from "@tanstack/store";
-import "./App.css";
 
 const countStore = new Store(0);
 
-function App() {
+function Counter() {
   const count = useStore(countStore);
   return (
     <div>
@@ -298,18 +217,13 @@ function App() {
     </div>
   );
 }
-
-export default App;
 ```
 
 One of the many nice features of TanStack Store is the ability to derive state from other state. That derived state will update when the base state updates.
 
-Let's check this out by doubling the count using derived state.
-
 ```tsx
 import { useStore } from "@tanstack/react-store";
 import { Store, Derived } from "@tanstack/store";
-import "./App.css";
 
 const countStore = new Store(0);
 
@@ -319,7 +233,7 @@ const doubledStore = new Derived({
 });
 doubledStore.mount();
 
-function App() {
+function Counter() {
   const count = useStore(countStore);
   const doubledCount = useStore(doubledStore);
 
@@ -332,13 +246,7 @@ function App() {
     </div>
   );
 }
-
-export default App;
 ```
-
-We use the `Derived` class to create a new store that is derived from another store. The `Derived` class has a `mount` method that will start the derived store updating.
-
-Once we've created the derived store we can use it in the `App` component just like we would any other store using the `useStore` hook.
 
 You can find out everything you need to know on how to use TanStack Store in the [TanStack Store documentation](https://tanstack.com/store/latest).
 
