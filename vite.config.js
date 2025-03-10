@@ -25,10 +25,6 @@ if (process.env.SENTRY_AUTH_TOKEN) {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: basePlugins,
-  test: {
-    globals: true,
-    environment: "jsdom",
-  },
   build: {
     // Only generate source maps if Sentry is enabled
     sourcemap: !!process.env.SENTRY_AUTH_TOKEN,
