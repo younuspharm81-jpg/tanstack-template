@@ -6,6 +6,33 @@ A modern chat template built with TanStack Router and Claude AI integration feat
 
 **⚡ View demo:** [https://tanstack-starter.netlify.app/](https://tanstack-starter.netlify.app/)
 
+## Table of Contents
+- [Deploy to Netlify](#deploy-to-netlify)
+- [Features](#-features)
+  - [AI Capabilities](#ai-capabilities)
+  - [User Experience](#user-experience)
+- [Project Structure](#project-structure)
+  - [Key Directories](#key-directories)
+- [Architecture](#architecture)
+  - [Tech Stack](#tech-stack)
+  - [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Local Setup](#local-setup)
+  - [Troubleshooting](#troubleshooting)
+  - [Building For Production](#building-for-production)
+- [Styling](#styling)
+- [Error Monitoring](#error-monitoring)
+- [Environment Configuration](#environment-configuration)
+  - [Anthropic API Key](#anthropic-api-key)
+  - [Convex Configuration](#convex-configuration-optional)
+- [Routing](#routing)
+  - [Adding A Route](#adding-a-route)
+  - [Adding Links](#adding-links)
+  - [Using A Layout](#using-a-layout)
+- [Data Fetching](#data-fetching)
+- [State Management](#state-management)
+- [Learn More](#learn-more)
+
 ## Deploy to Netlify
 
 Want to deploy immediately? Click this button
@@ -14,7 +41,7 @@ Want to deploy immediately? Click this button
 
 Clicking this button will create a new repo for you that looks exactly like this one, and sets that repo up immediately for deployment on Netlify.
 
-## ✨ Features
+## Features
 
 ### AI Capabilities
 - 🤖 Powered by Claude 3.5 Sonnet 
@@ -25,7 +52,7 @@ Clicking this button will create a new repo for you that looks exactly like this
 ### User Experience
 - 🎨 Modern UI with Tailwind CSS and Lucide icons
 - 🔍 Conversation management
-- 🔐 Secure API key management
+- 🔐 API key management
 - 📋 Markdown rendering with code highlighting
 
 ## Architecture
@@ -34,6 +61,7 @@ Clicking this button will create a new repo for you that looks exactly like this
 - **Frontend Framework**: React 19 with TanStack Start
 - **Routing**: TanStack Router
 - **State Management**: TanStack Store
+- **Database**: Convex (optional)
 - **Styling**: Tailwind CSS 4
 - **AI Integration**: Anthropic's Claude API
 - **Build Tool**: Vite 6 with Vinxi
@@ -43,15 +71,95 @@ Clicking this button will create a new repo for you that looks exactly like this
 - [Node.js](https://nodejs.org/) v20.9+
 - (optional) [nvm](https://github.com/nvm-sh/nvm) for Node version management
 - [Anthropic Claude API](https://www.anthropic.com/api)
+- (optional) [Convex Account](https://dashboard.convex.dev/signup) for database storage
+
+## Project Structure
+
+The project follows a modular structure for better organization and maintainability:
+
+```
+tanstack-template/
+├── convex/              # Convex database schema and functions (optional)
+├── public/              # Static assets
+├── src/
+│   ├── components/      # Reusable UI components
+│   ├── routes/          # TanStack Router route definitions
+│   ├── store/           # TanStack Store state management
+│   ├── utils/           # Utility functions and helpers
+│   ├── api.ts           # API client configuration
+│   ├── client.tsx       # Client-side entry point
+│   ├── convex.tsx       # Convex client configuration
+│   ├── router.tsx       # Router configuration
+│   ├── sentry.ts        # Sentry error monitoring setup
+│   ├── ssr.tsx          # Server-side rendering setup
+│   └── styles.css       # Global styles
+├── .env.example         # Example environment variables
+├── app.config.ts        # Application configuration
+├── package.json         # Project dependencies and scripts
+├── postcss.config.ts    # PostCSS configuration for Tailwind
+├── tsconfig.json        # TypeScript configuration
+└── vite.config.js       # Vite bundler configuration
+```
+
+### Key Directories
+
+- **src/components/**: Contains all reusable UI components used throughout the application
+- **src/routes/**: Contains route definitions using TanStack Router's file-based routing
+- **src/store/**: Contains state management logic using TanStack Store
+- **convex/**: Contains Convex database schema and functions (if using Convex for persistence)
 
 ## Getting Started
 
-To run this application:
+### Local Setup
 
-```bash
-npm install
-npm run dev
-```
+Follow these steps to set up and run the project locally:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/netlify-templates/tanstack-template.git
+   cd tanstack-template
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Then edit the `.env` file with your credentials:
+   - Required: Add your Anthropic API key (`VITE_ANTHROPIC_API_KEY`)
+   - Optional: Add Convex URL if using database features (`VITE_CONVEX_URL`)
+   - Optional: Add Sentry credentials for error monitoring (`VITE_SENTRY_DSN`, `SENTRY_AUTH_TOKEN`)
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   
+   The application should now be running at [http://localhost:3000](http://localhost:3000)
+
+### Troubleshooting
+
+- **Node.js version**: Ensure you're using Node.js v20.9 or higher. You can check your version with `node -v`.
+  ```bash
+  # Using nvm to install and use the correct Node version
+  nvm install 20.9
+  nvm use 20.9
+  ```
+
+- **API Key Issues**: If you encounter errors related to the Anthropic API, verify that your API key is correctly set in the `.env` file and that you have sufficient credits in your Anthropic account.
+
+- **Port Conflicts**: If port 3000 is already in use, the development server will automatically try to use the next available port. Check your terminal output for the correct URL.
+
+- **Convex Setup (Optional)**: If you're using Convex for database functionality:
+  ```bash
+  npx convex dev
+  ```
+  This will start the Convex development server alongside your application.
 
 ### Building For Production
 
@@ -77,14 +185,7 @@ This project uses [Sentry](https://sentry.io) for error monitoring and performan
 
 To set up Sentry:
 
-1. Create a `.env` file by copying `.env.example`
-2. Add your Sentry DSN and Auth Token to the `.env` file
-
-```bash
-cp .env.example .env
-```
-
-Then edit your `.env` file with your Sentry credentials. If the Sentry environment variables are not defined, the application will run without error monitoring.
+1. Add your Sentry DSN and Auth Token to your `.env` file (created during the Getting Started steps)
 
 ```
 # .env file
@@ -92,13 +193,31 @@ VITE_SENTRY_DSN=your-sentry-dsn-here
 SENTRY_AUTH_TOKEN=your-sentry-auth-token-here
 ```
 
-## Add Anthropic API Key to .env file
+If the Sentry environment variables are not defined, the application will run without error monitoring.
+
+## Environment Configuration
+
+### Anthropic API Key
 
 You can generate and manage your Anthropic API keys through the [Anthropic Console](https://console.anthropic.com/login).
 
 ```
 # .env file
 VITE_ANTHROPIC_API_KEY=your_anthropic_api_key
+```
+
+### Convex Configuration (Optional)
+
+For persistent storage of conversations:
+
+1. Create a Convex account at [dashboard.convex.dev](https://dashboard.convex.dev/signup)
+2. Create a new project in the Convex dashboard
+3. Run `npx convex dev` in your project directory to set up Convex
+4. Add your Convex deployment URL to the `.env` file
+
+```
+# .env file
+VITE_CONVEX_URL=your_convex_deployment_url
 ```
 
 ## Routing
@@ -197,7 +316,7 @@ Loaders simplify your data fetching logic dramatically. Check out more informati
 
 ## State Management
 
-This project uses TanStack Store for state management. The store files are located in the `src/store` directory.
+This project uses TanStack Store for local state management. The store files are located in the `src/store` directory. For persistent storage, the project can optionally use Convex as a backend database.
 
 Here's a simple example of how to use TanStack Store:
 
@@ -252,4 +371,7 @@ You can find out everything you need to know on how to use TanStack Store in the
 
 ## Learn More
 
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
+- Explore more about deploying with Netlify in the [Netlify documentation](https://docs.netlify.com/).
+- You can learn more about TanStack in the [TanStack documentation](https://tanstack.com).
+- Learn more about integrating AI with Anthropic's Claude API in the [Anthropic API documentation](https://console.anthropic.com/docs).
+- Learn about using Convex for database storage in the [Convex documentation](https://docs.convex.dev/).

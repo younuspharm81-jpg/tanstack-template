@@ -1,5 +1,5 @@
 import { Store } from '@tanstack/store'
-import type { Message } from '../utils/demo.ai'
+import type { Message } from '../utils/ai'
 
 // Types
 export interface Prompt {
@@ -62,13 +62,25 @@ export const actions = {
   },
 
   setPromptActive: (id: string, shouldActivate: boolean) => {
-    store.setState(state => ({
-      ...state,
-      prompts: state.prompts.map(p => ({
-        ...p,
-        is_active: p.id === id ? shouldActivate : false
-      }))
-    }))
+    store.setState(state => {
+      if (shouldActivate) {
+        return {
+          ...state,
+          prompts: state.prompts.map(p => ({
+            ...p,
+            is_active: p.id === id ? true : false
+          }))
+        };
+      } else {
+        return {
+          ...state,
+          prompts: state.prompts.map(p => ({
+            ...p,
+            is_active: p.id === id ? false : p.is_active
+          }))
+        };
+      }
+    });
   },
 
   // Chat actions
@@ -85,6 +97,16 @@ export const actions = {
       ...state,
       conversations: [...state.conversations, conversation],
       currentConversationId: conversation.id
+    }))
+  },
+
+  updateConversationId: (oldId: string, newId: string) => {
+    store.setState(state => ({
+      ...state,
+      conversations: state.conversations.map(conv =>
+        conv.id === oldId ? { ...conv, id: newId } : conv
+      ),
+      currentConversationId: state.currentConversationId === oldId ? newId : state.currentConversationId
     }))
   },
 
