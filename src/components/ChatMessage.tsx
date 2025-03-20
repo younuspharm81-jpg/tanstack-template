@@ -2,7 +2,7 @@ import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeHighlight from 'rehype-highlight'
-import type { Message } from '../utils/demo.ai'
+import type { Message } from '../utils/ai'
 
 export const ChatMessage = ({ message }: { message: Message }) => (
   <div
