@@ -18,13 +18,14 @@ A modern chat template built with TanStack Router and Claude AI integration feat
   - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
   - [Local Setup](#local-setup)
+  - [Local Setup with Netlify Dev](#local-setup-with-netlify-dev)
   - [Troubleshooting](#troubleshooting)
   - [Building For Production](#building-for-production)
 - [Styling](#styling)
 - [Error Monitoring](#error-monitoring)
 - [Environment Configuration](#environment-configuration)
   - [Anthropic API Key](#anthropic-api-key)
-  - [Convex Configuration](#convex-configuration-optional)
+  - [Convex Configuration (Optional)](#convex-configuration-optional)
 - [Routing](#routing)
   - [Adding A Route](#adding-a-route)
   - [Adding Links](#adding-links)
@@ -142,6 +143,34 @@ Follow these steps to set up and run the project locally:
    
    The application should now be running at [http://localhost:3000](http://localhost:3000)
 
+### Local Setup with Netlify Dev (Recommended)
+
+You can also use [Netlify Dev](https://www.netlify.com/products/dev/) to run your application locally with Netlify's full functionality:
+
+1. **Install Netlify CLI globally** (if you haven't already)
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+2. **Link your Netlify site** (optional)
+   ```bash
+   netlify link
+   ```
+   This will connect your local project to a Netlify site. If you haven't created a Netlify site yet, you can skip this step.
+
+3. **Start the development server with Netlify Dev**
+   ```bash
+   netlify dev
+   ```
+   This will:
+   - Start your local development server (similar to `npm run dev`)
+   - Load your Netlify environment variables
+   - Provide local versions of Netlify Functions (if any)
+   - Simulate the Netlify production environment locally
+
+4. **Access your site**
+   The application will be available at [http://localhost:8888](http://localhost:8888) by default.
+
 ### Troubleshooting
 
 - **Node.js version**: Ensure you're using Node.js v20.9 or higher. You can check your version with `node -v`.
@@ -196,6 +225,8 @@ SENTRY_AUTH_TOKEN=your-sentry-auth-token-here
 If the Sentry environment variables are not defined, the application will run without error monitoring.
 
 ## Environment Configuration
+
+**Important**: Never commit your `.env` file to version control as it contains sensitive information. The `.env` file is already included in the project's `.gitignore` file to prevent accidental commits.
 
 ### Anthropic API Key
 
