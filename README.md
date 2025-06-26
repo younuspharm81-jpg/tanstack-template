@@ -18,7 +18,7 @@ A modern chat template built with TanStack Router and Claude AI integration feat
   - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
   - [Local Setup](#local-setup)
-  - [Local Setup with Netlify Dev](#local-setup-with-netlify-dev)
+  - [Local Setup with Netlify Dev](#local-setup-with-netlify-dev-recommended)
   - [Troubleshooting](#troubleshooting)
   - [Building For Production](#building-for-production)
 - [Styling](#styling)
