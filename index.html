@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Majok App</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      text-align: center;
+      transition: all 0.5s ease;
+    }
+    header {
+      padding: 50px 20px;
+    }
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 30px;
+      background: #ff9800;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #e68900;
+    }
+    .mockup {
+      margin: 40px auto;
+      max-width: 400px;
+    }
+    .mockup img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    footer {
+      padding: 20px;
+      font-size: 0.9em;
+      opacity: 0.7;
+    }
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.3);
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-switch" onclick="switchLang()">EN / AR</div>
+
+  <!-- محتوى عربي -->
+  <div id="ar-content">
+    <header>
+      <h1>🚀 Majok App</h1>
+      <p>تطبيق مضحك يكشف لك شريكك المستقبلي بطريقة خيالية ومسلية 🎉</p>
+      <a href="#" class="btn">تحميل قريبًا</a>
+    </header>
+
+    <div class="mockup">
+      <img src="https://via.placeholder.com/400x700.png?text=Majok+App+Preview" alt="Majok Preview">
+    </div>
+
+    <footer>
+      <p>© 2025 Majok. جميع الحقوق محفوظة.</p>
+    </footer>
+  </div>
+
+  <!-- English Content -->
+  <div id="en-content" style="display:none;" dir="ltr">
+    <header>
+      <h1>🚀 Majok App</h1>
+      <p>A fun app that reveals your future partner in a hilarious and creative way 🎉</p>
+      <a href="#" class="btn">Coming Soon</a>
+    </header>
+
+    <div class="mockup">
+      <img src="https://via.placeholder.com/400x700.png?text=Majok+App+Preview" alt="Majok Preview">
+    </div>
+
+    <footer>
+      <p>© 2025 Majok. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function switchLang() {
+      let ar = document.getElementById("ar-content");
+      let en = document.getElementById("en-content");
+      if (ar.style.display === "none") {
+        ar.style.display = "block";
+        en.style.display = "none";
+        document.body.setAttribute("dir","rtl");
+      } else {
+        ar.style.display = "none";
+        en.style.display = "block";
+        document.body.setAttribute("dir","ltr");
+      }
+    }
+  </script>
+</body>
+</html>
